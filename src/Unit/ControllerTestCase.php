@@ -26,7 +26,7 @@ abstract class ControllerTestCase extends TestCase
     {
         parent::setUp();
 
-        if (property_exists('user') && is_object($this->user)) {
+        if (property_exists(self::class, 'user') && is_object($this->user)) {
             $this->actingAs($this->user);
         }
     }

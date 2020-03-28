@@ -43,7 +43,9 @@ abstract class ViewComposerTestCase extends TestCase
         Route::shouldReceive('getRoutes')->andReturn($routes);
         Route::makePartial();
 
-        Auth::shouldReceive('user')->andReturn($this->user);
+        if (property_exists(self::class, 'user') && is_object($this->user)) {
+            Auth::shouldReceive('user')->andReturn($this->user);
+        }
 
         $this->view = View::make('test_view::view-composer');
     }
@@ -62,6 +64,8 @@ abstract class ViewComposerTestCase extends TestCase
             }
         );
 
-        $this->actingAs($this->user);
+        if (property_exists(self::class, 'user') && is_object($this->user)) {
+            $this->actingAs($this->user);
+        }
     }
 }
