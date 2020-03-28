@@ -1,0 +1,79 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    process_timeout: 120
+    tasks:
+      composer: ~
+      git_commit_message:
+        enforce_capitalized_subject: false
+        max_subject_width: 72
+        max_body_width: 250
+        matchers:
+          - /^(bugfix|feature|refactor|cleanup|typo|other|test|doc|release|sync|staging) - /
+      git_blacklist:
+        keywords:
+          - 'console.log('
+          - '::whereHas'
+          - '->whereHas'
+        triggered_by: ['js', 'php']
+        whitelist_patterns:
+          - /^app\/(.*)/
+      jsonlint:
+        ignore_patterns:
+          - 'storage/app/seeds/'
+          - 'database/migrations/dumps/'
+        detect_key_conflicts: true
+      phpcpd:
+        exclude:
+          - database/migrations
+          - vendor
+          - config
+          - bootstrap/cache
+          - storage/framework/views
+          - other
+          - resources/lang
+        min_lines: 70
+        min_tokens: 70
+        triggered_by: ['php']
+      phpcs:
+        standard: 'grump-config/phpcs.xml'
+        whitelist_patterns:
+          - /^app\/(.*)/
+          - /^database\/(.*)/
+          - /^nova-components\/(.*)/
+          - /^phpstan\/(.*)/
+          - /^routes\/(.*)/
+          - /^storage\/(.*)/
+        ignore_patterns:
+          - database/migrations
+          - database/seeds
+      phpcsfixer2:
+        allow_risky: true
+        config: 'grump-config/.php_cs'
+        verbose: true
+      phplint:
+        exclude:
+          - other
+          - vendor
+      phpmd:
+        whitelist_patterns:
+          - /^app\/(.*)/
+          - /^routes\/(.*)/
+          - /^storage\/(.*)/
+        ruleset: ['grump-config/ruleset.xml']
+      phpparser:
+        ignore_patterns:
+          - other
+          - vendor
+        triggered_by: ['php']
+        visitors:
+          forbidden_function_calls:
+            blacklist:
+              - 'var_dump'
+              - 'dd'
+              - 'die'
+              - 'dump'
+          no_exit_statements: ~
+      securitychecker: ~
+      xmllint: ~
+      yamllint: ~

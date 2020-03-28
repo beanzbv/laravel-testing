@@ -1,0 +1,38 @@
+{
+    "name": "beanz/laravel-testing",
+    "description": "The laravel package to perform code checks and/or continuous integration and testing cases.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ward Haché",
+            "email": "ward@beanz.be"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Beanz\\Testing\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "phpmd/phpmd": "^2.7",
+        "phpro/grumphp": "^0.18.0",
+        "sebastian/phpcpd": "^5.0",
+        "sensiolabs/security-checker": "^6.0",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Beanz\\Testing\\Providers\\TestServiceProvider"
+            ]
+        }
+    }
+}
